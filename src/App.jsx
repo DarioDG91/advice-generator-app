@@ -9,15 +9,18 @@ function App() {
     advice: "Click the button to receive an advice!",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const adviceParagraph = <p>{advice.advice}</p>;
 
   function handleButtonClick() {
     setIsLoading(true);
+    setIsDisabled(true);
+
     fetch("https://api.adviceslip.com/advice")
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data.slip);
+        console.log(data.slip);
         if (data) {
           setAdvice((prev) => {
             return {
@@ -26,6 +29,9 @@ function App() {
               advice: data.slip.advice,
             };
           });
+          setTimeout(() => {
+            setIsDisabled(false);
+          }, 2_000);
         }
       })
       .catch((error) => console.error(error))
@@ -51,8 +57,8 @@ function App() {
         </div>
         <button
           onClick={handleButtonClick}
-          disabled={isLoading}
-          className="  bg-neonGreen p-5 rounded-full btn disabled:opacity-80"
+          disabled={isLoading || isDisabled}
+          className="  bg-neonGreen p-5 rounded-full btn disabled:opacity-40 disabled:shadow-none"
         >
           <img src={iconDice} alt="icon dice" />
         </button>
