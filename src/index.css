@@ -76,6 +76,10 @@ main {
   position: absolute;
   bottom: -2rem;
   right: calc(50% - 37px);
+
+}
+
+.btn {
   transition: box-shadow 300ms ease-in-out;
 
 }
