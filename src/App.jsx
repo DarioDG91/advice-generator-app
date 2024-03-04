@@ -1,8 +1,12 @@
 import { useState } from "react";
 import desktopDivider from "./assets/pattern-divider-desktop.svg";
 import mobileDivider from "./assets/pattern-divider-mobile.svg";
-import iconDice from "./assets/icon-dice.svg";
 import { Circles as Loader } from "react-loader-spinner";
+import iconDice from "./assets/icon-dice.svg";
+import { CircularProgressbarWithChildren } from "react-circular-progressbar";
+import "./ProgressButton-styles.css";
+
+const timer = 2_000;
 
 function App() {
   const [advice, setAdvice] = useState({
@@ -10,6 +14,7 @@ function App() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(0);
 
   const adviceParagraph = <p>{advice.advice}</p>;
 
@@ -29,13 +34,21 @@ function App() {
               advice: data.slip.advice,
             };
           });
+          const interval = setInterval(() => {
+            console.log("timer");
+            setRemainingTime((prevTime) => prevTime + 10);
+          }, 10);
           setTimeout(() => {
             setIsDisabled(false);
-          }, 2_000);
+            clearInterval(interval);
+            setRemainingTime(0);
+          }, timer);
         }
       })
       .catch((error) => console.error(error))
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   return (
@@ -55,13 +68,23 @@ function App() {
           <img src={mobileDivider} className=" sm:hidden" alt="divider" />
           <img src={desktopDivider} className="hidden sm:block" alt="divider" />
         </div>
-        <button
-          onClick={handleButtonClick}
-          disabled={isLoading || isDisabled}
-          className="  bg-neonGreen p-5 rounded-full btn disabled:opacity-40 disabled:shadow-none"
+        <div
+          className="progress-btn-container"
+          style={{ width: 74, height: 74 }}
         >
-          <img src={iconDice} alt="icon dice" />
-        </button>
+          <CircularProgressbarWithChildren
+            value={remainingTime}
+            maxValue={timer}
+          >
+            <button
+              onClick={handleButtonClick}
+              disabled={isLoading || isDisabled}
+              className="  bg-neonGreen p-5 rounded-full  disabled:opacity-40 disabled:shadow-none progress-label"
+            >
+              <img src={iconDice} alt="icon dice" />
+            </button>
+          </CircularProgressbarWithChildren>
+        </div>
       </main>
     </>
   );

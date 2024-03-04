@@ -69,18 +69,21 @@ body {
 
 main {
   width: min(92vw, 34rem);
+  position: relative;
 }
 
-.btn {
+.progress-btn-container {
   position: absolute;
   bottom: -2rem;
   right: calc(50% - 2rem);
-  transition: box-shadow 300ms ease-in-out ;
+  transition: box-shadow 300ms ease-in-out;
+
 }
 
 .btn:hover {
   box-shadow: 0px 0px 20px 6px hsl(150, 100%, 66%);
 }
+
 
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
