@@ -75,7 +75,7 @@ main {
 .progress-btn-container {
   position: absolute;
   bottom: -2rem;
-  right: calc(50% - 2rem);
+  right: calc(50% - 37px);
   transition: box-shadow 300ms ease-in-out;
 
 }

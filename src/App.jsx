@@ -79,7 +79,7 @@ function App() {
             <button
               onClick={handleButtonClick}
               disabled={isLoading || isDisabled}
-              className="  bg-neonGreen p-5 rounded-full  disabled:opacity-40 disabled:shadow-none progress-label"
+              className="  bg-neonGreen p-5 rounded-full btn  disabled:opacity-40 disabled:shadow-none progress-label"
             >
               <img src={iconDice} alt="icon dice" />
             </button>
